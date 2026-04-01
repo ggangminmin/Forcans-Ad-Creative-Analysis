@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Sidebar } from "@/components/layout/sidebar";
 
 export const metadata: Metadata = {
-  title: "Sample Left",
-  description: "Sample project with left sidebar",
+  title: "Forcans Ad Creative",
+  description: "AI Ad Creative Analysis",
 };
 
 export default function RootLayout({
@@ -13,10 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className="antialiased">
-        <Sidebar />
-        <main className="ml-[230px]">
+    <html lang="ko" suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
+        <main className="w-screen h-screen">
           {children}
         </main>
       </body>

@@ -4,3 +4,12 @@ node_modules/
 *.log
 .DS_Store
 nul
+.gstack/
+.agents/
+.claude/
+CLAUDE.md
+antigravity_skills/
+claude_skills/
+ui_ux_pro_max_claude_skills/
+image/
+*.png

@@ -10,7 +10,7 @@ const IMAGE_MODELS = [
 
 export async function POST(req: Request) {
   try {
-    const { prompt, aspectHint } = await req.json();
+    const { prompt, aspectHint, referenceImageUrl } = await req.json();
     const apiKey = process.env.VITE_GEMINI_API_KEY;
 
     if (!apiKey) {
@@ -42,17 +42,29 @@ export async function POST(req: Request) {
         console.log(`[Image Gen] Trying model: ${model}, target_ratio: ${aspectRatio}`);
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-        // Gemini 2.x Experimental Flash Image
+        // Gemini Content Parts
+        const parts: any[] = [
+          {
+            text: `Generate a high-quality advertising campaign image based on this description. Do NOT include any text or letters in the image. Focus purely on the visual scene, composition, lighting, and mood:\n\nREQUIRED ASPECT RATIO: The image MUST be generated in EXACTLY ${aspectRatio} aspect ratio format (or exactly ${aspectHint}). This is a strictly enforced layout requirement.\n\n${prompt}`
+          }
+        ];
+
+        // Add reference image if provided (Image-to-Image)
+        if (referenceImageUrl) {
+          const match = referenceImageUrl.match(/^data:([^;]+);base64,(.+)$/);
+          if (match) {
+            parts.push({
+              inlineData: {
+                mimeType: match[1],
+                data: match[2]
+              }
+            });
+            parts[0].text += `\n\nREFERENCE IMAGE: Use the attached image as a STYLE, LIGHTING, and COMPOSITION reference. Create a new creative that follows these visual motifs.`;
+          }
+        }
+
         const body: any = {
-          contents: [
-            {
-              parts: [
-                {
-                  text: `Generate a high-quality advertising campaign image based on this description. Do NOT include any text or letters in the image. Focus purely on the visual scene, composition, lighting, and mood:\n\nREQUIRED ASPECT RATIO: The image MUST be generated in EXACTLY ${aspectRatio} aspect ratio format (or exactly ${aspectHint}). This is a strictly enforced layout requirement.\n\n${prompt}`
-                }
-              ]
-            }
-          ],
+          contents: [{ parts }],
           generationConfig: {
             responseModalities: ["TEXT", "IMAGE"],
             temperature: 1.0,
