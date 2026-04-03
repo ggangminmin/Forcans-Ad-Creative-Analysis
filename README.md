@@ -1,80 +1,66 @@
 # 📊 Forcans Ad Creative Analysis & System
-> **광고 소재 최적화 및 자동 제안 시스템: 퍼포먼스 마케팅 효율 극대화를 위한 AI 솔루션 (PoC)**
+> **G-Stack 기반 광고 소재 최적화 및 자동 제안 시스템 (Agentic PoE)**
 
 ![Ad Creative Banner](https://img.shields.io/badge/AI_Agent-Ad_Optimization-orange?style=for-the-badge&logo=openai)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
-![Data Analysis](https://img.shields.io/badge/Analysis-CTR_Focused-red?style=for-the-badge&logo=googleanalytics)
+![Agentic Workflow](https://img.shields.io/badge/Stack-G--Stack-blue?style=for-the-badge&logo=ai-agent)
 
 ---
 
 ## 📽 프로젝트 개요 (Overview)
-**Forcans Ad Creative System**은 퍼포먼스 마케팅 시장에서 발생하는 '광고 소재 피로도' 문제를 해결하기 위해 설계된 AI 기반 분석 및 제안 시스템입니다. 기존 광고 성과 데이터를 분석하고 실시간 경쟁사 트렌드를 스캔하여, 클릭률(CTR)이 높은 새로운 광고 소재(이미지/문구)를 자동으로 기획하고 제안합니다.
+**Forcans Ad Creative System**은 퍼포먼스 마케팅 단계에서 발생하는 '광고 소재 피로도' 문제를 해결하기 위해 설계된 **지능형 멀티 에이전트 시스템**입니다. 
 
-- **목표**: 광고 소재 기획 공수 절감 및 데이터 기반의 객체적 소구점 도출
-- **핵심 성과**: 소재 제작 및 테스트 준비 시간 **70% 절감**
-- **데모 링크**: [Forcans Ad Creative Analysis](https://forcans-ad-creative-analysis.vercel.app/ad-creative)
+단순한 생성 AI를 넘어, 시장 트렌드 분석부터 시각화 전략까지 각 단계별 전문 에이전트가 협업하는 **G-Stack 아키텍처**를 채택하여 광고 제작 효율을 **70% 이상** 개선합니다.
 
 ---
 
-## 🔍 케이스 스터디 (Case Study)
+## 🧠 G-Stack & 서브 에이전트 아키텍처 (Agentic Workflow)
 
-### 1단계: 문제 정의 (Problem Definition)
-퍼포먼스 마케팅 시장의 광고 피로도 상승으로 인한 CTR 하락. 매번 새로운 소구점을 찾아 대량의 광고를 수동으로 제작하는 데 막대한 리소스가 소요되는 현상 발생.
+본 프로젝트는 3단계의 전문 서브 에이전트로 구성된 **G-Stack**을 통해 정교한 광고 기획 파이프라인을 구축했습니다.
 
-### 2단계: AI 적용 근거 (AI Rationale)
-실시간 경쟁사 데이터를 스캔하여 경쟁력이 높은 키워드를 추출하고, 생성형 AI를 활용해 수백 개의 광고 베리에이션을 즉각적으로 생성하여 A/B 테스트의 속도와 정확도를 높이기 위함.
+### 1단계: 🕵️ Scouter Agent (시장 분석)
+- **핵심 기술**: Tavily 실시간 검색 API + GPT-4o
+- **역할**: 입력된 카테고리에 대한 최신 시장 트렌드, 경쟁사 광고 소구점, 소비자 피로도가 높은 문구(Skip trigger)를 실시간으로 스캔하여 기획의 기초 데이터를 생성합니다.
 
-### 3단계: 기획 과정 (Planning Process)
-- **Scouter 엔진**: 실시간 웹 데이터 기반 광고 피로도 및 키워드 분석
-- **CTR 시뮬레이션**: 타겟 성별/연령 기반 성과 예측 로직 설계
-- **AD Editor**: 브랜드 톤별 4종 카피 제안 및 매체 비율 대응 레이아웃 설계
+### 2단계: ✍️ Writer Agent (내러티브 설계)
+- **핵심 기술**: 프롬프트 체이닝 + CTR 시뮬레이션 로직
+- **역할**: Scouter가 수집한 데이터를 기반으로 소구점 중심의 카피 12안을 생성합니다. 특히 타겟의 성별/연령 데이터를 학습하여 예상 클릭률(CTR)을 데이터 시각화 형태로 미리 보여줍니다.
 
-### 4단계: 결과 및 지표 (Results & Metrics)
-소재 제작 및 테스트 준비 시간을 기존 대비 **70% 절감**하였으며, AI 제안 소구점 기반 소재가 기존 수동 제작 소재 대비 우수한 성과 예측치를 기록.
-
----
-
-## ✨ 핵심 기능 (Key Features)
-
-| 기능 | 상세 설명 |
-| :--- | :--- |
-| **🕵️ Scouter Engine** | 실시간 트렌드 및 경쟁사 소재 스캐닝을 통한 소구점 추출 |
-| **📈 CTR Simulation** | 타겟 오디언스별 예상 클릭률 시뮬레이션 및 데이터 시각화 |
-| **✍️ Copywriting Editor** | 브랜드 톤앤매너(Friendly, Professional 등) 기반 카피 자동 생성 |
-| **🎨 Banner Builder** | 비주얼 구성 요소 제안 및 이미지 생성용 AI 프롬프트 자동화 |
+### 3단계: 🎨 Designer Agent (비주얼 디렉팅)
+- **핵심 기술**: 9컷 스토리보드 생성 + 실시간 이미지 피드백 루프
+- **역할**: 선정된 카피에 가장 적합한 9컷 분량의 비주얼 스토리보드를 설계합니다. 각 컷마다 구체적인 연출 가이드와 이미지 생성 프롬프트를 구성하며, 기획자의 피드백을 실시간으로 반영하여 즉시 수정 가능한 워크플로우를 제공합니다.
 
 ---
 
-## 📸 주요 화면 (Screenshots)
+## 🔍 주요 성과 (Case Study)
 
-### 1. 데이터 분석 및 소구점 도출
-![Analysis](docs/ad_1.png)
-
-### 2. 고효율 키워드 분석 및 트렌드 매핑
-![Simulation](docs/ad_2.png)
-
-### 3. AI 기반 카피라이팅 및 성과 시뮬레이션
-![Copywriting](docs/ad_4.png)
-
-### 4. 최종 배너 시안 및 비주얼 가이드
-![Final](docs/ad_3.png)
+- **문제 정의**: 고비용/저효율의 수동 광고 소재 제작 프로세스와 CTR 하락 문제.
+- **AI 적용 근거**: 데이터 기반의 Scouter 분석과 서브 에이전트 간의 협업으로 의사결정 속도 및 창의성 극대화.
+- **결과 지표**: 전체 광고 기획 및 시안 제작 준비 시간 **70% 절감**, 데이터 기반 소구점 적중률 향상.
 
 ---
 
-## 🛠 설치 및 시작하기 (Getting Started)
+## 📸 주요 실행 화면 (Screenshots)
 
-### Local Run
-```bash
-npm install
-npm run dev:node20
-```
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_1.png" width="45%" alt="Scouter Stage" />
+  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_2.png" width="45%" alt="Analysis Detail" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_4.png" width="45%" alt="Writer Stage & Simulation" />
+  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_3.png" width="45%" alt="Designer Stage & Visuals" />
+</p>
 
-### Vercel Deploy
-1. GitHub 레포지토리를 Vercel에 임포트합니다.
-2. 다음 환경 변수를 추가합니다:
-   - `VITE_OPENAI_API_KEY`
-   - `VITE_TAVILY_API_KEY`
-   - `VITE_GEMINI_API_KEY`
+---
+
+## 🛠 기술 스택 (Tech Stack)
+
+- **Framework**: Next.js 14 (App Router), TypeScript
+- **Agent Orchestration**: **G-Stack** (Multi-agent Route Handlers)
+- **Search Engine**: Tavily Search AI
+- **LLM**: OpenAI GPT-4o, Claude 3.5 Sonnet
+- **Styling**: Tailwind CSS, Framer Motion
+- **Management**: Markdown-based Prompt Engineering (`.agents/`)
 
 ---
 
@@ -82,4 +68,4 @@ npm run dev:node20
 본 프로젝트는 개인 포트폴리오 및 AI 서비스 PoC 목적으로 제작되었습니다.
 
 ---
-**Contact:** [강민석](https://github.com/ggangminmin)
+**Contact:** [강민석 (ggangminmin)](https://github.com/ggangminmin)
