@@ -1,5 +1,5 @@
 # 📊 Forcans Ad Creative Analysis & System
-> **G-Stack 기반 광고 소재 최적화 및 자동 제안 시스템 (Agentic PoE)**
+> **G-Stack 기반 멀티 에이전트 광고 기획 자동화 시스템 (Agentic PoE)**
 
 ![Ad Creative Banner](https://img.shields.io/badge/AI_Agent-Ad_Optimization-orange?style=for-the-badge&logo=openai)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
@@ -14,42 +14,53 @@
 
 ---
 
-## 🧠 G-Stack & 서브 에이전트 아키텍처 (Agentic Workflow)
+## 🧠 G-Stack 서브 에이전트 작업 루트 (Workflow Route)
 
-본 프로젝트는 3단계의 전문 서브 에이전트로 구성된 **G-Stack**을 통해 정교한 광고 기획 파이프라인을 구축했습니다.
+본 프로젝트는 3단계의 전문 서브 에이전트가 순차적으로 데이터를 가공하며 최종 기획안을 도출하는 **Agentic Pipeline**을 따릅니다.
 
-### 1단계: 🕵️ Scouter Agent (시장 분석)
-- **핵심 기술**: Tavily 실시간 검색 API + GPT-4o
-- **역할**: 입력된 카테고리에 대한 최신 시장 트렌드, 경쟁사 광고 소구점, 소비자 피로도가 높은 문구(Skip trigger)를 실시간으로 스캔하여 기획의 기초 데이터를 생성합니다.
+### 🔄 Agent Interaction Flow
 
-### 2단계: ✍️ Writer Agent (내러티브 설계)
-- **핵심 기술**: 프롬프트 체이닝 + CTR 시뮬레이션 로직
-- **역할**: Scouter가 수집한 데이터를 기반으로 소구점 중심의 카피 12안을 생성합니다. 특히 타겟의 성별/연령 데이터를 학습하여 예상 클릭률(CTR)을 데이터 시각화 형태로 미리 보여줍니다.
+```mermaid
+graph LR
+    User([사용자 입력]) --> Scouter[1단: Scouter Agent]
+    Scouter -->|시장 트렌드 & 피로도 데이터| Writer[2단: Writer Agent]
+    Writer -->|최적 카피 & CTR 시뮬레이션| Designer[3단: Designer Agent]
+    Designer -->|9컷 스토리보드 & 프롬프트| Final([최종 광고 시안])
+```
 
-### 3단계: 🎨 Designer Agent (비주얼 디렉팅)
-- **핵심 기술**: 9컷 스토리보드 생성 + 실시간 이미지 피드백 루프
-- **역할**: 선정된 카피에 가장 적합한 9컷 분량의 비주얼 스토리보드를 설계합니다. 각 컷마다 구체적인 연출 가이드와 이미지 생성 프롬프트를 구성하며, 기획자의 피드백을 실시간으로 반영하여 즉시 수정 가능한 워크플로우를 제공합니다.
+### 1단계: 🕵️ Scouter Agent (시장 분석 루트)
+- **Role**: 입력된 카테고리에 대해 **Tavily 실시간 검색 API**를 활용하여 데이터 수집.
+- **Input**: { 카테고리, 상품 정보 }.
+- **Output**: { 현재 유행 키워드, 피해야 할 피로 문구(Skip trigger), 실시간 시장 인사이트 }.
+- **Logic**: 시장의 실시간 '노이즈'를 제거하고 가장 유효한 소구점의 Raw 데이터를 확보합니다.
 
----
+### 2단계: ✍️ Writer Agent (내러티브 설계 루트)
+- **Role**: Scouter의 분석 결과를 재료로 사용자의 브랜드 톤에 맞춰 카피 생성.
+- **Input**: { Scouter 인사이트, 선택된 광고 톤 }.
+- **Output**: { 광고 카피 12안, 데이터 기반 예상 클릭률(CTR) 시뮬레이션 }.
+- **Logic**: 확률적 알고리즘을 결합하여 타겟별 성과 예측 데이터를 도출하고 기획자의 의사결정을 돕습니다.
 
-## 🔍 주요 성과 (Case Study)
-
-- **문제 정의**: 고비용/저효율의 수동 광고 소재 제작 프로세스와 CTR 하락 문제.
-- **AI 적용 근거**: 데이터 기반의 Scouter 분석과 서브 에이전트 간의 협업으로 의사결정 속도 및 창의성 극대화.
-- **결과 지표**: 전체 광고 기획 및 시안 제작 준비 시간 **70% 절감**, 데이터 기반 소구점 적중률 향상.
+### 3단계: 🎨 Designer Agent (비주얼 디렉팅 루트)
+- **Role**: 선정된 카피를 9컷의 시각적 스토리로 구체화.
+- **Input**: { 선정된 카피, 매체 포맷(16:9, 1:1 등) }.
+- **Output**: { 9컷 비주얼 스토리보드, 연출 가이드, AI 이미지 생성용 프롬프트 }.
+- **Logic**: 단순한 텍스트를 시각 언어로 변환하며, 실시간 피드백 루프를 통해 시안을 즉시 수정 가능하게 합니다.
 
 ---
 
 ## 📸 주요 실행 화면 (Screenshots)
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_1.png" width="45%" alt="Scouter Stage" />
-  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_2.png" width="45%" alt="Analysis Detail" />
-</p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_4.png" width="45%" alt="Writer Stage & Simulation" />
-  <img src="https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/ad_3.png" width="45%" alt="Designer Stage & Visuals" />
-</p>
+### 1. 상품 정보 입력 및 Scouter 분석 시작
+![Step 1](https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/step1.png)
+
+### 2. 고효율 키워드 분석 및 마케팅 인사이트 도출
+![Step 2](https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/step2.png)
+
+### 3. AI 기반 카피 생성 및 성과 시뮬레이션 (Writer)
+![Step 3](https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/step3.png)
+
+### 4. 9컷 비주얼 가이드 및 이미지 프롬프트 자동화 (Designer)
+![Step 4](https://raw.githubusercontent.com/ggangminmin/Forcans-Ad-Creative-Analysis/main/docs/step4.png)
 
 ---
 
